@@ -5,10 +5,15 @@ import Contants.ContantsSearchPage;
 import Methods.BaseMethods;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class SearchPage extends BaseMethods {
     ContantsSearchPage searchPage=new ContantsSearchPage();
     ContantsMainPage mainPage=new ContantsMainPage();
+
+    public SearchPage(WebDriver driver) {
+        super(driver);
+    }
 
     public void callFilterList(){
         searchFilterChoice();

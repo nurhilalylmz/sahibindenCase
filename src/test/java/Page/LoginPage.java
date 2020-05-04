@@ -5,6 +5,7 @@ import Contants.ContantsMainPage;
 import Methods.BaseMethods;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends BaseMethods {
 
@@ -15,20 +16,27 @@ public class LoginPage extends BaseMethods {
     ContantsLoginPage loginPage=new ContantsLoginPage();
     ContantsMainPage mainPage=new ContantsMainPage();
 
-    public void goToLoginPage(){
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public LoginPage goToLoginPage(){
         waitElementToClickable(mainPage.buttongotoLogin);
         clickElement(mainPage.buttongotoLogin);
+        return new LoginPage(driver);
     }
-    public void login(){
+    public LoginPage login(){
             waitForPageLoad(mainPage.copyrightText);
             writeText(loginPage.username,email);
             writeText(loginPage.password,password);
             clickElement(loginPage.loginButton);
+        return new LoginPage(driver);
         }
-    public void checkUserMainPage(){
+    public LoginPage checkUserMainPage(){
         waitForPageLoad(mainPage.copyrightText);
         checkURlIsTrue(expectingUrl);
         Assert.assertTrue("Giriş yapamadınız!", getText(loginPage.successUserPage).equals("Üyeliğim"));
+        return new LoginPage(driver);
     }
 
 }

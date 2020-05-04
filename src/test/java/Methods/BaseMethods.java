@@ -7,10 +7,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseMethods {
-    protected static WebDriver driver = BaseTest.driver;
+    protected WebDriver driver = BaseTest.driver;
     protected JavascriptExecutor jse = (JavascriptExecutor) driver;
     protected Actions action = new Actions(driver);
     protected WebDriverWait wait = new WebDriverWait(driver, 30);
+
+    public BaseMethods(WebDriver driver) {
+        super();
+    }
 
     //Wrapper methodu gözükene kadar bekler.
     protected void waitElementToClickable(By by) {
