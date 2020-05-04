@@ -3,6 +3,8 @@ package Page;
 import Contants.ContantsLoginPage;
 import Contants.ContantsMainPage;
 import Methods.BaseMethods;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class LoginPage extends BaseMethods {
 
@@ -13,26 +15,20 @@ public class LoginPage extends BaseMethods {
     ContantsLoginPage loginPage=new ContantsLoginPage();
     ContantsMainPage mainPage=new ContantsMainPage();
 
-
     public void goToLoginPage(){
-        waitForPageLoad(mainPage.copyrightText);
-        clickAnywhereOnPage();
         waitElementToClickable(mainPage.buttongotoLogin);
         clickElement(mainPage.buttongotoLogin);
     }
     public void login(){
             waitForPageLoad(mainPage.copyrightText);
             writeText(loginPage.username,email);
-            waitSeconds(2);
             writeText(loginPage.password,password);
-            waitSeconds(2);
             clickElement(loginPage.loginButton);
-            waitSeconds(2);
         }
-
     public void checkUserMainPage(){
         waitForPageLoad(mainPage.copyrightText);
         checkURlIsTrue(expectingUrl);
+        Assert.assertTrue("Giriş yapamadınız!", getText(loginPage.successUserPage).equals("Üyeliğim"));
     }
 
 }

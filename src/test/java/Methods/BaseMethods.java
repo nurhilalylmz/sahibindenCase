@@ -1,15 +1,10 @@
 package Methods;
 
 import Test.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.awt.*;
 
 public class BaseMethods {
     protected static WebDriver driver = BaseTest.driver;
@@ -30,6 +25,7 @@ public class BaseMethods {
         System.out.println(text);
     }
 
+    //İlgili elementin text'ini getirir.
     protected String getText(By by) {
         return findByElement(by).getText();
     }
@@ -37,6 +33,7 @@ public class BaseMethods {
     protected void clickElement(By by) {
         try {
             findByElement(by).click();
+            waitSeconds(1);
             logMessage(getText(by) + " elementine tıklandı.");
         } catch (Exception e) {
             logMessage("Elemente tıklanamadı. Element: " + by + " Hata: " + e.getMessage());
@@ -44,27 +41,36 @@ public class BaseMethods {
 
     }
 
+    //Verilen URL'in doğruluğunu kotnrol eder.
     protected void checkURlIsTrue(String expectingUrl) {
         if (driver.getCurrentUrl().contentEquals(expectingUrl)) {
             logMessage("URL bilgisi doğru: " + expectingUrl);
         } else {
             logMessage("Gelen URL bilgisi yanlış gözükmektedir.");
-            logMessage("Beklenen: "+expectingUrl);
-            logMessage("Gelen : "+driver.getCurrentUrl());
+            logMessage("Beklenen: " + expectingUrl);
+            logMessage("Gelen : " + driver.getCurrentUrl());
         }
     }
 
     protected void writeText(By by, CharSequence text) {
         try {
             findByElement(by).sendKeys(text);
+            waitSeconds(1);
         } catch (Exception e) {
             logMessage("İlgili elemente yazı yazılırken hata oluştu. Element: " + by + " Hata: " + e.getMessage());
         }
     }
 
-    protected void scrollPageWithJavaScript(WebElement element) {
+    //Sayfayı Javascript ile scroll eder.
+    protected void scrollPageWithJavaScript(By by) {
+        WebElement element = findByElement(by);
         //Element görünene kadar sayfayı scroll eder.
         jse.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    //Sayfayı scroll eder.
+    protected void scrollWebPage() {
+        jse.executeScript("scroll(0, 300);");
     }
 
     protected void waitSeconds(int seconds) {
@@ -76,30 +82,36 @@ public class BaseMethods {
         }
     }
 
-    protected void clickAnywhereOnPage() {
-        Robot robot = null;
-        try {
-            robot = new Robot();
-            robot.mouseMove(200, 70);
-            action.click().build().perform();
-            waitSeconds(1);
-        } catch (Exception e) {
-            logMessage("Pop-up kapatılmaya çalışırken hata alındı. Hata : " + e.getMessage());
-        }
-    }
-
+    //Sayfayı belirli bir element yüklenene kadar bekletir.
     protected void waitForPageLoad(By by) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
-    protected void writeWithJavascriptExecutor(By by,String text){
-        WebElement inputField = findByElement(by);
-        jse.executeScript("arguments[0].setAttribute('value', '" + text +"')", inputField);
+
+    //Anasayfa kontrolü yapar.
+    protected void checkHomePageControl(By element) {
+        if (findByElement(element).getText().contains("Anasayfa Vitrini")) {
+            logMessage("Sahibinden Anasayfa'ya gidildi.");
+        } else {
+            logMessage("Sahibinden Anasayfa'ya gidilemedi.");
+        }
     }
-    protected void checkHomePageControl(By element){
-            if (findByElement(element).getText().contains("Anasayfa Vitrini")) {
-                logMessage("Sahibinden Anasayfa'ya gidildi.");
-            } else {
-                logMessage("Sahibinden Anasayfa'ya gidilemedi.");
-            }
+
+    //Listeyi scroll eder.
+    protected void innerScrollPage(By scrollBar, int scrollPoints) {
+        WebElement webElement = findByElement(scrollBar);
+        try {
+            waitSeconds(2);
+            int numberOfPixelsHoldNumber = 10;
+            action.moveToElement(webElement).clickAndHold().moveByOffset(0, numberOfPixelsHoldNumber)
+                    .release(webElement).build().perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    protected void clickIfValueFound(By by){
+        if(findByElement(by).isEnabled())
+            clickElement(by);
+    }
+
 }

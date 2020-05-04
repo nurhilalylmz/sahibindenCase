@@ -18,6 +18,18 @@ public class ContantsMainPage {
 
     public By buttonOtomobilPage=By.cssSelector("[title='Otomobil']");
 
-    public By buttonSpesificCarOpel=By.linkText("Opel");
+    public By buttonSpesificCarOpel=By.xpath("/html//div[@id='searchCategoryContainer']//ul//a[@title='Opel']");
+
+    public By splashMainPage=By.cssSelector(".services-categories > .splash-360-home");
+
+    public By vasitaPageControl=By.xpath("/html//div[@id='container']/div//h3[.='Vasıta Vitrin']");
+
+    public By rentPageControl=By.cssSelector(".showcase-classifieds h3");
+
+    public By carPageControl=By.cssSelector("a[title='Otomobil'] > span");
+
+    public By textSpesificCarOpel=By.cssSelector("span[title='Opel Kiralık Araçlar']");
+
+    public By scrollBarInnerList=By.className("jspTrack");
 
 }
