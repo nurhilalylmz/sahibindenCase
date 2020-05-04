@@ -30,8 +30,8 @@ public class MainPage extends BaseMethods {
         waitForPageLoad(mainPage.copyrightText);
         return new MainPage(driver);
     }
-    public MainPage checkHomepage(){
-        checkHomePageControl(mainPage.textCauseHomePage);
+    public MainPage checkHomepage(String page_title){
+        checkHomePageControl(mainPage.textCauseHomePage,page_title);
         Assert.assertTrue("Pop-up kapatılamadığından anasayfa açılamadı.",getText(mainPage.textCauseHomePage).contains("Anasayfa Vitrini"));
         return new MainPage(driver);
     }

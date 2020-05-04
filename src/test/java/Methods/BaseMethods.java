@@ -92,11 +92,11 @@ public class BaseMethods {
     }
 
     //Anasayfa kontrolü yapar.
-    protected void checkHomePageControl(By element) {
-        if (findByElement(element).getText().contains("Anasayfa Vitrini")) {
+    protected void checkHomePageControl(By element , String page_title) {
+        if (findByElement(element).getText().contains(page_title)) {
             logMessage("Sahibinden Anasayfa'ya gidildi.");
         } else {
-            logMessage("Sahibinden Anasayfa'ya gidilemedi.");
+            logMessage("Sahibinden Anasayfa'ya gidilemedi.Title: " + page_title);
         }
     }
 

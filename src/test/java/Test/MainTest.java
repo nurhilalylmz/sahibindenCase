@@ -28,7 +28,7 @@ public class MainTest extends BaseTest
 
         //Main sayfada yapılan işlemler burada yer alır.
         //mainPage.gotoHomepage();
-        mainPage.checkHomepage().
+        mainPage.checkHomepage("Anasayfa Vitrini").
                 goToVasitaPage().
                 goToRentCarPage().
                 gotoCarPage().
@@ -36,11 +36,29 @@ public class MainTest extends BaseTest
                 goToSpesificCarBrand();
 
         loginPage.goToLoginPage().
-                login().
+                login("testhilaltest@gmail.com","").
                 checkUserMainPage();
 
 
         //Serach sayfasında yapılan işlemler burada yer alır.
         searchPage.callFilterList();
+    }
+
+    @Test
+    public void FailLoginTestWithEmptyPassword() {
+
+        loginPage.goToLoginPage().
+                login("testhilaltest@gmail.com","").
+                checkUserMainPage();
+
+        mainPage.checkHomepage("Kategori Vitrini");
+    }
+
+    @Test
+    public void SuccessLoginTest() {
+
+        loginPage.goToLoginPage().
+                login("testhilaltest@gmail.com","1q2w3e4r").
+                checkUserMainPage();
     }
 }

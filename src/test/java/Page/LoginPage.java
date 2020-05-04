@@ -9,8 +9,6 @@ import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends BaseMethods {
 
-    String email ="testhilaltest@gmail.com";
-    String password ="testhilal34";
     String expectingUrl="https://banaozel.sahibinden.com/";
 
     ContantsLoginPage loginPage=new ContantsLoginPage();
@@ -25,13 +23,14 @@ public class LoginPage extends BaseMethods {
         clickElement(mainPage.buttongotoLogin);
         return new LoginPage(driver);
     }
-    public LoginPage login(){
+    public LoginPage login(String email, String password){
             waitForPageLoad(mainPage.copyrightText);
             writeText(loginPage.username,email);
             writeText(loginPage.password,password);
             clickElement(loginPage.loginButton);
         return new LoginPage(driver);
         }
+
     public LoginPage checkUserMainPage(){
         waitForPageLoad(mainPage.copyrightText);
         checkURlIsTrue(expectingUrl);
