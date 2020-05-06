@@ -7,36 +7,33 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseMethods {
-    protected static WebDriver driver = BaseTest.driver;
+    protected  WebDriver driver = BaseTest.driver;
     protected JavascriptExecutor jse = (JavascriptExecutor) driver;
     protected Actions action = new Actions(driver);
     protected WebDriverWait wait = new WebDriverWait(driver, 30);
 
-    //Wrapper methodu gözükene kadar bekler.
-    protected void waitElementToClickable(By by) {
-        wait.until(ExpectedConditions.elementToBeClickable(by));
+    public BaseMethods(WebDriver driver) {
+        super();
     }
 
-    protected WebElement findByElement(By by) {
-        return driver.findElement(by);
+
+    //Wrapper methodu gözükene kadar bekler.
+    protected void waitElementToClickable(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
+
 
     protected void logMessage(String text) {
         System.out.println(text);
     }
 
-    //İlgili elementin text'ini getirir.
-    protected String getText(By by) {
-        return findByElement(by).getText();
-    }
-
-    protected void clickElement(By by) {
+    protected void clickElement(WebElement element) {
         try {
-            findByElement(by).click();
+            element.click();
             waitSeconds(1);
-            logMessage(getText(by) + " elementine tıklandı.");
+            logMessage(element.getText() + " elementine tıklandı.");
         } catch (Exception e) {
-            logMessage("Elemente tıklanamadı. Element: " + by + " Hata: " + e.getMessage());
+            logMessage("Elemente tıklanamadı. Element: " + element + " Hata: " + e.getMessage());
         }
 
     }
@@ -52,18 +49,17 @@ public class BaseMethods {
         }
     }
 
-    protected void writeText(By by, CharSequence text) {
+    protected void writeText(WebElement element, CharSequence text) {
         try {
-            findByElement(by).sendKeys(text);
+            element.sendKeys(text);
             waitSeconds(1);
         } catch (Exception e) {
-            logMessage("İlgili elemente yazı yazılırken hata oluştu. Element: " + by + " Hata: " + e.getMessage());
+            logMessage("İlgili elemente yazı yazılırken hata oluştu. Element:"+ element +"Hata: " + e.getMessage());
         }
     }
 
     //Sayfayı Javascript ile scroll eder.
-    protected void scrollPageWithJavaScript(By by) {
-        WebElement element = findByElement(by);
+    protected void scrollPageWithJavaScript(WebElement element) {
         //Element görünene kadar sayfayı scroll eder.
         jse.executeScript("arguments[0].scrollIntoView();", element);
     }
@@ -83,35 +79,37 @@ public class BaseMethods {
     }
 
     //Sayfayı belirli bir element yüklenene kadar bekletir.
-    protected void waitForPageLoad(By by) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    protected void waitForPageLoad(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     //Anasayfa kontrolü yapar.
-    protected void checkHomePageControl(By element) {
-        if (findByElement(element).getText().contains("Anasayfa Vitrini")) {
-            logMessage("Sahibinden Anasayfa'ya gidildi.");
-        } else {
-            logMessage("Sahibinden Anasayfa'ya gidilemedi.");
+    protected void checkHomePageControl(WebElement element,String controlText) {
+        try {
+            if (element.getText().contains(controlText)) {
+                logMessage("Anasayfa'ya gidildi.");
+            }
+        }catch (Exception e)
+        {
+            logMessage("Gelen değer: "+element.getText());
+            logMessage("Anasayfa'ya gidilemedi. Title: "+controlText+", Hata: "+e.getMessage());
         }
     }
 
     //Listeyi scroll eder.
-    protected void innerScrollPage(By scrollBar, int scrollPoints) {
-        WebElement webElement = findByElement(scrollBar);
+    protected void innerScrollPage(WebElement scrollBar, int scrollPoints,int numberOfPixelsHoldNumber) {
         try {
             waitSeconds(2);
-            int numberOfPixelsHoldNumber = 10;
-            action.moveToElement(webElement).clickAndHold().moveByOffset(0, numberOfPixelsHoldNumber)
-                    .release(webElement).build().perform();
+            action.moveToElement(scrollBar).clickAndHold().moveByOffset(0, numberOfPixelsHoldNumber)
+                    .release(scrollBar).build().perform();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected void clickIfValueFound(By by){
-        if(findByElement(by).isEnabled())
-            clickElement(by);
+    protected void clickIfValueFound(WebElement element){
+        if(element.isEnabled())
+            clickElement(element);
     }
 
 }

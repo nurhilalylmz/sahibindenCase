@@ -1,35 +1,58 @@
 package Contants;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 public class ContantsMainPage {
 
-    public By buttongotoCarPage = By.linkText("Vasıta");
+    final WebDriver webDriver;
 
-    public By buttongotoRentCarPage = By.linkText("Kiralık Araçlar");
+    @FindBy(how = How.LINK_TEXT,using = "Vasıta")
+    public WebElement buttongotoCarPage ;
 
-    public By buttongotoLogin = By.linkText("Giriş Yap");
+    @FindBy(how = How.LINK_TEXT,using = "Kiralık Araçlar")
+    public WebElement buttongotoRentCarPage ;
 
-    public By buttongotoHomepage=By.className("logo");
+    @FindBy(how = How.LINK_TEXT,using = "Giriş Yap")
+    public WebElement buttongotoLogin ;
 
-    public By textCauseHomePage=By.cssSelector(".showcase.uiBox > h3");
+    @FindBy(how = How.CLASS_NAME,using ="logo")
+    public WebElement buttongotoHomepage;
 
-    public By copyrightText = By.cssSelector(".copyright");
+    @FindBy(how = How.CSS,using =".showcase.uiBox > h3")
+    public WebElement textCauseHomePage;
 
-    public By buttonOtomobilPage=By.cssSelector("[title='Otomobil']");
+    @FindBy(how = How.CSS,using =".copyright")
+    public WebElement copyrightText;
 
-    public By buttonSpesificCarOpel=By.xpath("/html//div[@id='searchCategoryContainer']//ul//a[@title='Opel']");
+    @FindBy(how = How.CSS,using ="[title='Otomobil']")
+    public WebElement buttonOtomobilPage;
 
-    public By splashMainPage=By.cssSelector(".services-categories > .splash-360-home");
+    @FindBy(how = How.XPATH,using ="/html//div[@id='searchCategoryContainer']//ul//a[@title='Opel']")
+    public WebElement buttonSpesificCarOpel;
 
-    public By vasitaPageControl=By.xpath("/html//div[@id='container']/div//h3[.='Vasıta Vitrin']");
+    @FindBy(how = How.CSS,using =".services-categories > .splash-360-home")
+    public WebElement splashMainPage;
 
-    public By rentPageControl=By.cssSelector(".showcase-classifieds h3");
+    @FindBy(how = How.XPATH,using ="/html//div[@id='container']/div//h3[.='Vasıta Vitrin']")
+    public WebElement vasitaPageControl;
 
-    public By carPageControl=By.cssSelector("a[title='Otomobil'] > span");
+    @FindBy(how = How.CSS,using =".showcase-classifieds h3")
+    public WebElement rentPageControl;
 
-    public By textSpesificCarOpel=By.cssSelector("span[title='Opel Kiralık Araçlar']");
+    @FindBy(how = How.CSS,using ="a[title='Otomobil'] > span")
+    public WebElement carPageControl;
 
-    public By scrollBarInnerList=By.className("jspTrack");
+    @FindBy(how = How.CSS,using ="span[title='Opel Kiralık Araçlar']")
+    public WebElement textSpesificCarOpel;
 
+    @FindBy(how = How.CLASS_NAME,using ="jspTrack")
+    public WebElement scrollBarInnerList;
+
+    public ContantsMainPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 }

@@ -1,11 +1,9 @@
 package Test;
-import Methods.BaseMethods;
 import Page.LoginPage;
 import Page.MainPage;
 import Page.SearchPage;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ErrorCollector;
+import org.openqa.selenium.support.PageFactory;
 
 public class MainTest extends BaseTest
 {
@@ -13,33 +11,37 @@ public class MainTest extends BaseTest
     MainPage mainPage;
     SearchPage searchPage;
 
-    @Rule
-    public ErrorCollector collector = new ErrorCollector();
 
     @Test
     public void Main(){
-        loginPage=new LoginPage();
-        mainPage=new MainPage();
-        searchPage=new SearchPage();
+        loginPage=new LoginPage(driver);
+        mainPage=new MainPage(driver);
+        searchPage=new SearchPage(driver);
 
         //Sayfa ilk açıldığında gelen pop-up'ı kapatır.
         mainPage.closePopup();
 
         //Login sayfasında yapılacak işlemler altta yer alır.
-//        loginPage.goToLoginPage();
-//        loginPage.login();
-//        loginPage.checkUserMainPage();
+//           loginPage.goToLoginPage()
+//          .login("testhilaltest@gmail.com","testhilal34")
+//                   .checkUserMainPage("https://banaozel.sahibinden.com/","Üyeliğim");
 
         //Main sayfada yapılan işlemler burada yer alır.
         //mainPage.gotoHomepage();
-        mainPage.checkHomepage();
-        mainPage.goToVasitaPage();
-        mainPage.goToRentCarPage();
-        mainPage.gotoCarPage();
-        mainPage.controlURL();
-        mainPage.goToSpesificCarBrand();
+        mainPage.checkHomepage("Anasayfa Vitrini")
+        .goToVasitaPage("Vasıta Vitrin")
+        .goToRentCarPage("Kiralık Araçlar Vitrin")
+        .gotoCarPage("Otomobil")
+        .controlURL("href")
+        .goToSpesificCarBrand(400,10,"Opel");
+
 
         //Serach sayfasında yapılan işlemler burada yer alır.
-        searchPage.callFilterList();
+        searchPage.clickDropdownListAddressElement("İstanbul (Tümü)")
+                .writeInputMaxValue("100")
+                .clickDropdownListVitesElement()
+                .clickSearchButton();
     }
+
+
 }
