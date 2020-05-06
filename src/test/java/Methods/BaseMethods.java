@@ -16,7 +16,6 @@ public class BaseMethods {
         super();
     }
 
-
     //Wrapper methodu gözükene kadar bekler.
     protected void waitElementToClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));

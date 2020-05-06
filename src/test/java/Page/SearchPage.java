@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class SearchPage extends BaseMethods {
     ContantsSearchPage searchPage= PageFactory.initElements(driver, ContantsSearchPage.class);
     ContantsMainPage mainPage=PageFactory.initElements(driver, ContantsMainPage.class);
@@ -15,6 +16,7 @@ public class SearchPage extends BaseMethods {
     public SearchPage(WebDriver driver) {
         super(driver);
     }
+
 
     public SearchPage clickSearchButton(){
         clickElement(searchPage.buttonSearch);

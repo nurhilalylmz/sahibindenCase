@@ -18,6 +18,7 @@ import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+
 import java.util.Collections;
 
 public class BaseTest {
@@ -108,13 +109,14 @@ public class BaseTest {
     @After
     public void tearDown() {
         if(driver!=null){
+
             driver.quit();
         }
     }
-    public static WebDriver getDriver(){
-        return driver;
+    public WebDriver getDriver(){
+        return this.driver;
     }
-    public static void setDriver(WebDriver webDriver){
-        BaseTest.driver=webDriver;
+    public void setDriver(WebDriver webDriver){
+        this.driver=webDriver;
     }
 }

@@ -11,7 +11,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BaseMethods {
 
-
     ContantsLoginPage loginPage = PageFactory.initElements(driver, ContantsLoginPage.class);
     ContantsMainPage mainPage = PageFactory.initElements(driver, ContantsMainPage.class);
 

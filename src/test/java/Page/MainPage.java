@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 
+
 public class MainPage extends BaseMethods {
     ContantsMainPage mainPage= PageFactory.initElements(driver, ContantsMainPage.class);
 
@@ -26,6 +27,7 @@ public class MainPage extends BaseMethods {
         waitForPageLoad(mainPage.copyrightText);
         return new MainPage(driver);
     }
+
     public MainPage checkHomepage(String controlURlText){
         checkHomePageControl(mainPage.textCauseHomePage,controlURlText);
         Assert.assertTrue("Pop-up kapatılamadığından anasayfa açılamadı.",mainPage.textCauseHomePage.getText().contains("Anasayfa Vitrini"));
@@ -66,6 +68,7 @@ public class MainPage extends BaseMethods {
         waitForPageLoad(mainPage.copyrightText);
         Assert.assertTrue("Opel Kategorisine tıklanıp açılamadı."
                 ,mainPage.textSpesificCarOpel.getText().contains(containsPageText));
+
         return new MainPage(driver);
     }
 
