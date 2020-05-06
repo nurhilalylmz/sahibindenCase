@@ -1,46 +1,47 @@
 package Page;
 
+import Contants.ContantsLoginPage;
 import Contants.ContantsMainPage;
 import Contants.ContantsSearchPage;
 import Methods.BaseMethods;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
 
 public class SearchPage extends BaseMethods {
-    ContantsSearchPage searchPage=new ContantsSearchPage();
-    ContantsMainPage mainPage=new ContantsMainPage();
+    ContantsSearchPage searchPage= PageFactory.initElements(driver, ContantsSearchPage.class);
+    ContantsMainPage mainPage=PageFactory.initElements(driver, ContantsMainPage.class);
 
     public SearchPage(WebDriver driver) {
         super(driver);
     }
 
-    public void callFilterList(){
-        searchFilterChoice();
+
+    public SearchPage clickSearchButton(){
         clickElement(searchPage.buttonSearch);
         waitSeconds(5);
+        return new SearchPage(driver);
     }
-    public void searchFilterChoice(){
+    public SearchPage clickDropdownListAddressElement(String controlText){
         waitForPageLoad(mainPage.copyrightText);
-        clickDropdownListAddressElement();
-        writeInputMaxValue();
-        scrollPageWithJavaScript(searchPage.dropdownMotorHacmi);
-        clickDropdownListVitesElement();
-    }
-    public void clickDropdownListAddressElement(){
         clickElement(searchPage.addressListDropDown);
         clickElement(searchPage.selectAddressIstanbulTumu);
         clickElement(searchPage.buttonAddressListDropDownClose);
         Assert.assertTrue("İstanbul(Tümü) Kategorisine tıklanamadı."
-                ,getText(searchPage.afterSelectedTownText).contains("İstanbul (Tümü)"));
+                ,searchPage.afterSelectedTownText.getText().contains(controlText));
+        return new SearchPage(driver);
     }
-    public void writeInputMaxValue(){
-        writeText(searchPage.inputMaxPrice,"100");
+    public SearchPage writeInputMaxValue(String maxValue){
+        writeText(searchPage.inputMaxPrice,maxValue);
+        return new SearchPage(driver);
     }
-    public void clickDropdownListVitesElement(){
+    public SearchPage clickDropdownListVitesElement(){
+        scrollPageWithJavaScript(searchPage.dropdownMotorHacmi);
         clickElement(searchPage.showButtonVites);
         clickElement(searchPage.selectVitesOtomatik);
         Assert.assertFalse("Otomatik Vites Kategorisine tıklanamadı."
-                ,findByElement(searchPage.selectVitesOtomatik).isSelected());
+                ,(searchPage.selectVitesOtomatik).isSelected());
+        return new SearchPage(driver);
     }
 }
