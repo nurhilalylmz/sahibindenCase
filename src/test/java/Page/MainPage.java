@@ -27,8 +27,8 @@ public class MainPage extends BaseMethods {
         return new MainPage(driver);
     }
     public MainPage checkHomepage(String controlURlText){
-        Assert.assertEquals(mainPage.textCauseHomePage.getText(),controlURlText,
-                "Anasayfada olmadığı görüldü.");
+        Assert.assertEquals(mainPage.textCauseHomePage,controlURlText);
+        Assert.assertTrue(mainPage.textCauseHomePage.getText().contains("Anasayfa Vitrini"), "Pop-up kapatılamadığından anasayfa açılamadı.");
         return new MainPage(driver);
     }
     public MainPage goToVasitaPage(String containsPageText){
@@ -55,19 +55,16 @@ public class MainPage extends BaseMethods {
 
     }
     public MainPage controlURL(String searchValue){
-       // checkURlIsTrue(mainPage.buttonOtomobilPage.getAttribute(searchValue));
-        Assert.assertEquals(driver.getCurrentUrl(),mainPage.buttonOtomobilPage.getAttribute(searchValue)
-        ,"İstenen sayafada değilsiniz.");
+        Assert.assertEquals(driver.getCurrentUrl(),mainPage.buttonOtomobilPage.getAttribute(searchValue));
         waitForPageLoad(mainPage.copyrightText);
         return new MainPage(driver);
     }
-    public MainPage goToSpesificCarBrand(int numberOfPixelsHoldNumber,String containsPageText){
+    public MainPage goToSpesificCarBrand(int scrollPoints,int numberOfPixelsHoldNumber,String containsPageText){
         scrollWebPage();
         innerScrollPage(mainPage.scrollBarInnerList,numberOfPixelsHoldNumber);
         clickIfValueFound(mainPage.buttonSpesificCarOpel);
-        waitSeconds(2);
         waitForPageLoad(mainPage.copyrightText);
-        Assert.assertEquals(mainPage.textSpesificCarOpel.getText(),(containsPageText)
+        Assert.assertTrue(mainPage.textSpesificCarOpel.getText().contains(containsPageText)
                         , "Opel Kategorisine tıklanıp açılamadı.");
         return new MainPage(driver);
     }
