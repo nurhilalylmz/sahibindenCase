@@ -21,7 +21,7 @@ public class ContantsLoginPage {
     @FindBy(how = How.XPATH,using = "/html//form[@id='loginForm']/dl/dd[1]/label[@class='error']")
     public WebElement errorEmptyUsernameInputArea;
 
-    @FindBy(how = How.XPATH,using = "/html//form[@id='loginForm']//label[@class='error']")
+    @FindBy(how = How.XPATH,using = "//*[@id=\"loginForm\"]/dl/dd[2]/label")
     public WebElement errorEmptyPasswordInputArea;
 
     @FindBy(how = How.CSS,using = ".error")

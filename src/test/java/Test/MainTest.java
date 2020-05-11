@@ -51,7 +51,7 @@ public class MainTest extends BaseTest {
     public void emptyAllTextFieldsLogin() {
         loginPage = new LoginPage(driver);
         loginPage
-                .login("testhilaltest@gmail.com", "")
+                .login("", "")
                 .checkTrueLogin("", "", "E-posta adresinizi veya kullanıcı adınızı girin.", "");
     }
 
