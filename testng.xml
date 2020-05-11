@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="softwaretestingmaterial">
+    <test name="LoginTest">
+        <groups>
+            <run>
+                <include name="login"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="Test.MainTest"></class>
+        </classes>
+    </test>
+    <test name="ContinueTest">
+        <groups>
+            <run>
+                <include name="travelPage"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="Test.MainTest"></class>
+        </classes>
+    </test>
+    <test name="SearchTest">
+        <groups>
+            <run>
+                <include name="filter"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="Test.MainTest"></class>
+        </classes>
+    </test>
+</suite>

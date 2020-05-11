@@ -16,12 +16,10 @@ public class BaseMethods {
         super();
     }
 
-
     //Wrapper methodu gözükene kadar bekler.
     protected void waitElementToClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
-
 
     protected void logMessage(String text) {
         System.out.println(text);
@@ -36,17 +34,6 @@ public class BaseMethods {
             logMessage("Elemente tıklanamadı. Element: " + element + " Hata: " + e.getMessage());
         }
 
-    }
-
-    //Verilen URL'in doğruluğunu kotnrol eder.
-    protected void checkURlIsTrue(String expectingUrl) {
-        if (driver.getCurrentUrl().contentEquals(expectingUrl)) {
-            logMessage("URL bilgisi doğru: " + expectingUrl);
-        } else {
-            logMessage("Gelen URL bilgisi yanlış gözükmektedir.");
-            logMessage("Beklenen: " + expectingUrl);
-            logMessage("Gelen : " + driver.getCurrentUrl());
-        }
     }
 
     protected void writeText(WebElement element, CharSequence text) {
@@ -83,21 +70,8 @@ public class BaseMethods {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    //Anasayfa kontrolü yapar.
-    protected void checkHomePageControl(WebElement element,String controlText) {
-        try {
-            if (element.getText().contains(controlText)) {
-                logMessage("Anasayfa'ya gidildi.");
-            }
-        }catch (Exception e)
-        {
-            logMessage("Gelen değer: "+element.getText());
-            logMessage("Anasayfa'ya gidilemedi. Title: "+controlText+", Hata: "+e.getMessage());
-        }
-    }
-
     //Listeyi scroll eder.
-    protected void innerScrollPage(WebElement scrollBar, int scrollPoints,int numberOfPixelsHoldNumber) {
+    protected void innerScrollPage(WebElement scrollBar,int numberOfPixelsHoldNumber) {
         try {
             waitSeconds(2);
             action.moveToElement(scrollBar).clickAndHold().moveByOffset(0, numberOfPixelsHoldNumber)

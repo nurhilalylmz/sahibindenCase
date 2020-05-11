@@ -3,11 +3,9 @@ package Page;
 import Contants.ContantsLoginPage;
 import Contants.ContantsMainPage;
 import Methods.BaseMethods;
-import org.apache.commons.logging.Log;
-import org.junit.Assert;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 public class LoginPage extends BaseMethods {
 
@@ -27,7 +25,9 @@ public class LoginPage extends BaseMethods {
 
     public LoginPage login(String email, String password) {
         waitForPageLoad(mainPage.copyrightText);
+        loginPage.username.clear();
         writeText(loginPage.username, email);
+        loginPage.password.clear();
         writeText(loginPage.password, password);
         clickElement(loginPage.loginButton);
         return new LoginPage(driver);
@@ -35,8 +35,23 @@ public class LoginPage extends BaseMethods {
 
     public LoginPage checkUserMainPage(String expectingUrl, String controlPageText) {
         waitForPageLoad(mainPage.copyrightText);
-        checkURlIsTrue(expectingUrl);
-        Assert.assertTrue("Giriş yapamadınız!", loginPage.successUserPage.getText().equals(controlPageText));
+        Assert.assertEquals(driver.getCurrentUrl(), expectingUrl, "İstenen sayfada olunmadığı görüldü");
+        Assert.assertTrue(loginPage.successUserPage.getText().equals(controlPageText), "Giriş yapamadınız!");
+        return new LoginPage(driver);
+    }
+    public LoginPage checkTrueLogin(String email,String password,String expectedText,String expectedURL){
+        if(email.isEmpty()){
+            Assert.assertEquals(loginPage.errorEmptyUsernameInputArea.getText(),expectedText);
+        }
+        else if (email.isEmpty()&&password.isEmpty()){
+            Assert.assertEquals(loginPage.errorEmptyUsernameInputArea.getText(),expectedText);
+        }
+        else if (password.isEmpty()){
+            Assert.assertEquals(loginPage.errorEmptyPasswordInputArea.getText(),expectedText);
+        }
+        else if((!email.isEmpty()&&!password.isEmpty())&&driver.getCurrentUrl()!=expectedURL){
+            Assert.assertEquals(loginPage.errorWrongEmailPassword.getText(),expectedText);
+        }
         return new LoginPage(driver);
     }
 

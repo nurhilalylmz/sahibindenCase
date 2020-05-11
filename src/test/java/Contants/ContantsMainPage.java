@@ -1,6 +1,5 @@
 package Contants;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +21,7 @@ public class ContantsMainPage {
     @FindBy(how = How.CLASS_NAME,using ="logo")
     public WebElement buttongotoHomepage;
 
-    @FindBy(how = How.CSS,using =".showcase.uiBox > h3")
+    @FindBy(how = How.LINK_TEXT,using ="Tüm vitrin ilanlarını göster")
     public WebElement textCauseHomePage;
 
     @FindBy(how = How.CSS,using =".copyright")
