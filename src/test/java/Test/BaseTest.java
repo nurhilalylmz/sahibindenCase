@@ -10,7 +10,7 @@ public class BaseTest {
 
     @BeforeTest(alwaysRun = true)
     public void beginTest() {
-        BasePage.setBrowser("https://www.gittigidiyor.com/");
+        BasePage.setBrowser("https://www.sahibinden.com/");
     }
 
     @AfterTest(alwaysRun = true)
