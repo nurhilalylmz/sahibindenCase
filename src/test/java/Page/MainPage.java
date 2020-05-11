@@ -27,8 +27,7 @@ public class MainPage extends BaseMethods {
         return new MainPage(driver);
     }
     public MainPage checkHomepage(String controlURlText){
-        Assert.assertEquals(mainPage.textCauseHomePage,controlURlText);
-        Assert.assertTrue(mainPage.textCauseHomePage.getText().contains("Anasayfa Vitrini"), "Pop-up kapatılamadığından anasayfa açılamadı.");
+        Assert.assertEquals(mainPage.textCauseHomePage.getText(),controlURlText);
         return new MainPage(driver);
     }
     public MainPage goToVasitaPage(String containsPageText){
@@ -59,7 +58,7 @@ public class MainPage extends BaseMethods {
         waitForPageLoad(mainPage.copyrightText);
         return new MainPage(driver);
     }
-    public MainPage goToSpesificCarBrand(int scrollPoints,int numberOfPixelsHoldNumber,String containsPageText){
+    public MainPage goToSpesificCarBrand(int numberOfPixelsHoldNumber,String containsPageText){
         scrollWebPage();
         innerScrollPage(mainPage.scrollBarInnerList,numberOfPixelsHoldNumber);
         clickIfValueFound(mainPage.buttonSpesificCarOpel);

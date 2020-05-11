@@ -24,8 +24,8 @@ public class SearchPage extends BaseMethods {
     }
     public SearchPage clickDropdownListAddressElement(String controlText){
         waitForPageLoad(mainPage.copyrightText);
-        clickElement(searchPage.addressListDropDown);
         waitSeconds(2);
+        clickElement(searchPage.addressListDropDown);
         clickElement(searchPage.selectAddressIstanbulTumu);
         clickElement(searchPage.buttonAddressListDropDownClose);
         Assert.assertTrue(searchPage.afterSelectedTownText.getText().contains(controlText)

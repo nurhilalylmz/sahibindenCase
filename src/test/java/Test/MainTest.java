@@ -1,46 +1,83 @@
 package Test;
+
 import Page.LoginPage;
 import Page.MainPage;
 import Page.SearchPage;
 import org.testng.annotations.Test;
 
-public class MainTest extends BaseTest
-{
+public class MainTest extends BaseTest {
     LoginPage loginPage;
     MainPage mainPage;
     SearchPage searchPage;
 
 
-    @Test
-    public void Main(){
-        loginPage=new LoginPage(driver);
-        mainPage=new MainPage(driver);
-        searchPage=new SearchPage(driver);
-
-        //Sayfa ilk açıldığında gelen pop-up'ı kapatır.
+    @Test(groups = "login", priority = 0)
+    public void successLogin() {
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
         mainPage.closePopup();
+        loginPage.goToLoginPage()
+                .login("testhilaltest@gmail.com", "testhilal34")
+                .checkUserMainPage("https://banaozel.sahibinden.com/", "Üyeliğim");
 
-        //Login sayfasında yapılacak işlemler altta yer alır.
-//           loginPage.goToLoginPage()
-//          .login("testhilaltest@gmail.com","testhilal34")
-//                   .checkUserMainPage("https://banaozel.sahibinden.com/","Üyeliğim");
+    }
 
-        //Main sayfada yapılan işlemler burada yer alır.
-        //mainPage.gotoHomepage();
-        mainPage.checkHomepage("Anasayfa Vitrini")
-        .goToVasitaPage("Vasıta Vitrin")
-        .goToRentCarPage("Kiralık Araçlar Vitrin")
-        .gotoCarPage("Otomobil")
-        .controlURL("href")
-        .goToSpesificCarBrand(400,10,"Opel");
+    @Test(groups = "login", priority = 1)
+    public void wrongInformationTextLogin() {
+        loginPage = new LoginPage(driver);
+        loginPage
+                .login("testhilaltest12@gmail.com", "testhi54lal34")
+                .checkTrueLogin("testhilaltest12@gmail.com", "testhi54lal34", "E-posta adresiniz, şifreniz veya kullanıcı adınız hatalı.", driver.getCurrentUrl());
 
+    }
 
-        //Serach sayfasında yapılan işlemler burada yer alır.
+    @Test(groups = "login", priority = 2)
+    public void emptyEmailLogin() {
+        loginPage = new LoginPage(driver);
+        loginPage
+                .login("", "testhilal34")
+                .checkTrueLogin("", "testhilal34", "E-posta adresinizi veya kullanıcı adınızı girin.", "");
+    }
+
+    @Test(groups = "login", priority = 3)
+    public void emptyPasswordLogin() {
+        loginPage = new LoginPage(driver);
+        loginPage
+                .login("testhilaltest@gmail.com", "")
+                .checkTrueLogin("testhilaltest@gmail.com", "", "Şifrenizi girin.", "");
+    }
+
+    @Test(groups = "login", priority = 4)
+    public void emptyAllTextFieldsLogin() {
+        loginPage = new LoginPage(driver);
+        loginPage
+                .login("testhilaltest@gmail.com", "")
+                .checkTrueLogin("", "", "E-posta adresinizi veya kullanıcı adınızı girin.", "");
+    }
+
+    @Test(groups = "travelPage")
+    public void successGoToSpesificCarPage() {
+        mainPage = new MainPage(driver);
+
+        mainPage.closePopup()
+                .checkHomepage("Tüm vitrin ilanlarını göster")
+                .goToVasitaPage("Vasıta Vitrin")
+                .goToRentCarPage("Kiralık Araçlar Vitrin")
+                .gotoCarPage("Otomobil")
+                .controlURL("href")
+                .goToSpesificCarBrand(10, "Opel");
+
+    }
+
+    @Test(groups = "filter")
+    public void successFilterWithSpesificChoice(){
+        searchPage = new SearchPage(driver);
+        driver.navigate().to("https://www.sahibinden.com/kiralik-araclar-otomobil-opel");
+        //Search sayfasında yapılan işlemler burada yer alır.
         searchPage.clickDropdownListAddressElement("İstanbul (Tümü)")
                 .writeInputMaxValue("100")
                 .clickDropdownListVitesElement()
                 .clickSearchButton();
     }
-
 
 }

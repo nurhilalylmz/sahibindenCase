@@ -11,24 +11,24 @@
             <class name="Test.MainTest"></class>
         </classes>
     </test>
-    <test name="ContinueTest">
-        <groups>
-            <run>
-                <include name="travelPage"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="Test.MainTest"></class>
-        </classes>
-    </test>
-    <test name="SearchTest">
-        <groups>
-            <run>
-                <include name="filter"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="Test.MainTest"></class>
-        </classes>
-    </test>
+<!--    <test name="ContinueTest">-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="travelPage"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="Test.MainTest"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="SearchTest">-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="filter"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="Test.MainTest"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
