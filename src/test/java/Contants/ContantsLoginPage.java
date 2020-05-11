@@ -18,6 +18,14 @@ public class ContantsLoginPage {
     @FindBy(how = How.CSS,using = "[ng-show='session\\.user'] .ng-binding")
     public WebElement successUserPage;
 
+    @FindBy(how = How.XPATH,using = "/html//form[@id='loginForm']/dl/dd[1]/label[@class='error']")
+    public WebElement errorEmptyUsernameInputArea;
+
+    @FindBy(how = How.XPATH,using = "/html//form[@id='loginForm']//label[@class='error']")
+    public WebElement errorEmptyPasswordInputArea;
+
+    @FindBy(how = How.XPATH,using = "//form[@id='loginForm']//span[@class='error']")
+    public WebElement errorWrongEmailPassword;
 
     public ContantsLoginPage(WebDriver webDriver) {
         driver = webDriver;

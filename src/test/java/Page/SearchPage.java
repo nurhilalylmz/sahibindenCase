@@ -1,10 +1,9 @@
 package Page;
 
-import Contants.ContantsLoginPage;
 import Contants.ContantsMainPage;
 import Contants.ContantsSearchPage;
 import Methods.BaseMethods;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -26,10 +25,11 @@ public class SearchPage extends BaseMethods {
     public SearchPage clickDropdownListAddressElement(String controlText){
         waitForPageLoad(mainPage.copyrightText);
         clickElement(searchPage.addressListDropDown);
+        waitSeconds(2);
         clickElement(searchPage.selectAddressIstanbulTumu);
         clickElement(searchPage.buttonAddressListDropDownClose);
-        Assert.assertTrue("İstanbul(Tümü) Kategorisine tıklanamadı."
-                ,searchPage.afterSelectedTownText.getText().contains(controlText));
+        Assert.assertTrue(searchPage.afterSelectedTownText.getText().contains(controlText)
+                        , "İstanbul(Tümü) Kategorisine tıklanamadı.");
         return new SearchPage(driver);
     }
     public SearchPage writeInputMaxValue(String maxValue){
@@ -40,8 +40,8 @@ public class SearchPage extends BaseMethods {
         scrollPageWithJavaScript(searchPage.dropdownMotorHacmi);
         clickElement(searchPage.showButtonVites);
         clickElement(searchPage.selectVitesOtomatik);
-        Assert.assertFalse("Otomatik Vites Kategorisine tıklanamadı."
-                ,(searchPage.selectVitesOtomatik).isSelected());
+        Assert.assertFalse((searchPage.selectVitesOtomatik).isSelected()
+                        , "Otomatik Vites Kategorisine tıklanamadı.");
         return new SearchPage(driver);
     }
 }
